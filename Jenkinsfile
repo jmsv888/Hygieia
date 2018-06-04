@@ -5,29 +5,23 @@ node {
 
     stage('Build Code'){
         sh '''#!/usr/bin/env bash
-
+        mvn clean install package
+        mvn docker:build
         '''
 
     }
 
-    stage('Build image'){
-        sh("docker build -t ${imageTag} .")
-    }
-
     stage('Push image to registry'){
         
-        sh("gcloud docker -- push ${imageTag}")
+        sh("docker image push")
         
     }
 
     stage('Deploy Application'){
 
 
-                sh("kubectl --namespace=${env.BRANCH_NAME} apply -f k8s/services/")
-                sh("kubectl --namespace=${env.BRANCH_NAME} apply -f k8s/qa/")
-                //sh("echo http://`kubectl --namespace=develop get service/${feSvcName} --output=json | jq -r '.status.loadBalancer.ingress[0].ip'` > ${feSvcName}")
-
-        
+        sh("kubectl apply -f k8s/*")
+                
     }
 
 
