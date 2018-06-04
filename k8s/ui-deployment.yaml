@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml
+    kompose.version: 1.14.0 (fa706f2)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: ui
+  name: ui
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: ui
+    spec:
+      containers:
+      - image: jmsv888/hygieia-ui
+        name: ui
+        ports:
+        - containerPort: 80
+        resources: {}
+      restartPolicy: Always
+status: {}

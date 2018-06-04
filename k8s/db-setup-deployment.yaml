@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml
+    kompose.version: 1.14.0 (fa706f2)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: db-setup
+  name: db-setup
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: db-setup
+    spec:
+      containers:
+      - image: jmsv888/hygieia_db-setup
+        name: db-setup
+        resources: {}
+      restartPolicy: Always
+status: {}
