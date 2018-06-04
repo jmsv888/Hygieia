@@ -1,0 +1,30 @@
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: hygieia
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: hygieia
+      labels:
+        app: hygieia
+        role: frontend
+        env: prod
+    spec:
+      containers:
+      - name: hygieia
+        image: jmsv888/hygieia
+        imagePullPolicy: Always
+        readinessProbe:
+          failureThreshold: 5
+          httpGet:
+            path: /
+            port: 80
+          periodSeconds: 60
+          successThreshold: 1
+          timeoutSeconds: 10
+          initialDelaySeconds: 30
+        ports:
+        - name: hygieia
+          containerPort: 80
