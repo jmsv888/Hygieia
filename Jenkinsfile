@@ -6,7 +6,6 @@ node {
         stage('Build Code'){
             sh '''#!/usr/bin/env bash
             echo $DOCKER_HOST
-            sudo usermod -aG docker jenkins
             mvn clean install package
             echo "$DOCKER_HOST 2"
             docker-compose build
