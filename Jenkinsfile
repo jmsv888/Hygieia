@@ -31,7 +31,7 @@ node {
     stage('Deploy Application'){
 
 
-        sh("kubectl apply -f k8s/*.yaml")
+        sh("kubectl apply -f *.yaml")
                 
     }
 
