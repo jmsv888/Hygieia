@@ -2,16 +2,18 @@ node {
 
 
     checkout scm
+    withEnv(['DOCKER_HOST=unix:///var/run/docker.sock']){
+        stage('Build Code'){
+            sh '''#!/usr/bin/env bash
+            echo $DOCKER_HOST
+            mvn clean install package
+            echo "$DOCKER_HOST 2"
+            docker-compose build
+            echo "$DOCKER_HOST 3"
+            '''
 
-    stage('Build Code'){
-        sh '''#!/usr/bin/env bash
-	export DOCKER_HOST=unix:///var/run/docker.sock
-        mvn clean install package
-        docker-compose build
-        '''
-
+        }
     }
-
     stage('Push Images to Repository'){
         sh '''
         docker login -u jmsv888 -p fiat500
