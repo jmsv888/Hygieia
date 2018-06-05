@@ -5,6 +5,7 @@ node {
 
     stage('Build Code'){
         sh '''#!/usr/bin/env bash
+	export DOCKER_HOST=unix:///var/run/docker.sock
         mvn clean install package
         docker-compose build
         '''
