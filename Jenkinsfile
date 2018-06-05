@@ -31,8 +31,11 @@ node {
     stage('Deploy Application'){
 
 
-        sh("kubectl apply -f k8s/*.yaml")
-                
+        // sh'''
+        // for i in `ls -tr k8/`;do kubectl apply -f $i sleep5;done
+        // '''
+
+        sh("kubectl apply -f k8s/")
     }
 
 
